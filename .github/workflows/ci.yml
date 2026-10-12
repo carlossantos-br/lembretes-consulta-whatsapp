@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configura o Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # Sem etapa de instalação: o projeto não tem dependências, de propósito.
+      - name: Testes
+        run: npm test
+      - name: Demo
+        run: npm run demo
+
+  sanitize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configura o Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Só os padrões de formato. A lista de literais nunca é commitada.
+      - name: Sanitize (só formatos)
+        run: npm run sanitize

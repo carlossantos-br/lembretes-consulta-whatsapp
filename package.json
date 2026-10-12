@@ -1,0 +1,27 @@
+{
+  "name": "lembretes-consulta-whatsapp",
+  "version": "0.1.0",
+  "description": "Arquitetura de referência para lembretes de consulta pelo WhatsApp, com os modos de falha de produção que moldaram o desenho.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.13"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "demo": "node examples/demo.mjs",
+    "sanitize": "node scripts/sanitize.mjs"
+  },
+  "keywords": [
+    "whatsapp",
+    "appointment-reminders",
+    "idempotency",
+    "hexagonal-architecture",
+    "ports-and-adapters",
+    "webhooks",
+    "reliability",
+    "rd-station-conversas",
+    "belle"
+  ],
+  "dependencies": {}
+}

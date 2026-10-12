@@ -1,0 +1,7 @@
+[
+  "ClientName",
+  "client-internal-hostname.example.com",
+  "CityName",
+  "pm2-process-name",
+  "database_name"
+]

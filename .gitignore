@@ -1,0 +1,6 @@
+node_modules/
+coverage/
+
+# Literais específicos do deploy para scripts/sanitize.mjs. Nunca commitados: uma
+# lista dos termos que não podem ser publicados acabaria publicando todos eles.
+.sanitize-local.json

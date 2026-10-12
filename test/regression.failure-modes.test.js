@@ -292,7 +292,7 @@ test('13: o payload é chave de busca e nunca fonte de verdade', async () => {
       appointment({ id: 'a2', patientId: 'p2', patientName: 'Outra Pessoa' }),
     ],
     phones: { p1: MODERN_PHONE, p2: OTHER_PHONE },
-    config: { webhookSecret: 'shared-secret' },
+    config: { webhookSecret: 'shared-secret', allowUnauthenticatedWebhook: false },
   });
   await orchestrator.scan(SCAN_IN_PRIMARY);
 
@@ -319,6 +319,18 @@ test('13: o payload é chave de busca e nunca fonte de verdade', async () => {
   );
   assert.equal(unauthorized.status, 'unauthorized');
   assert.equal(store.all().find((reminder) => reminder.phone === OTHER_PHONE).status, SENT);
+});
+
+test('13: sem segredo configurado o webhook falha fechado', async () => {
+  const { orchestrator, store } = harness({ config: { allowUnauthenticatedWebhook: false } });
+  await orchestrator.scan(SCAN_IN_PRIMARY);
+
+  const result = await orchestrator.receiveWebhook(
+    inboundPayload({ from: MODERN_PHONE, text: 'Não irei', eventId: 'e1' }),
+    { now: SCAN_IN_PRIMARY },
+  );
+  assert.equal(result.status, 'unauthorized');
+  assert.equal(store.all()[0].status, SENT, 'nada foi aplicado');
 });
 
 // ---------------------------------------------------------------------------

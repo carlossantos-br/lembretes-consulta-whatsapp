@@ -47,8 +47,14 @@ const ANSWERABLE = [SENT, CONFIRMED, CANCELLED];
 
 export async function receiveWebhook({ payload, headers = {}, now, ports, config }) {
   const { store } = ports;
-  const { webhookSecret, webhookSecretHeader, storeEscalatedText } = config;
+  const { webhookSecret, webhookSecretHeader, storeEscalatedText, allowUnauthenticatedWebhook } = config;
 
+  // Falha fechada: sem segredo configurado o endpoint recusa tudo. Esquecer a
+  // variável de ambiente no deploy não pode virar um webhook aberto.
+  if (!webhookSecret && !allowUnauthenticatedWebhook) {
+    await store.recordEvent('webhook_secret_missing', {});
+    return { status: 'unauthorized' };
+  }
   if (webhookSecret && !secretMatches(webhookSecret, headers[webhookSecretHeader])) {
     await store.recordEvent('webhook_unauthorized', {});
     return { status: 'unauthorized' };

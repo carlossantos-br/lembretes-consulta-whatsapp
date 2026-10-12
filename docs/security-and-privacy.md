@@ -20,6 +20,9 @@ descobrisse a URL poderia ir contando para cima e cancelar consultas reais.
 provedor permite headers customizados. A comparação é em tempo constante, com
 verificação de tamanho antes, para que a própria comparação não vaze o tamanho do
 segredo.
+Sem segredo configurado o endpoint **falha fechado**: recusa tudo e registra
+`webhook_secret_missing`. Esquecer a variável no deploy não abre o webhook; só
+testes e demos locais ligam `allowUnauthenticatedWebhook`.
 
 **2. O payload é chave de busca e nunca verdade.** O corpo contribui com exatamente
 uma coisa: um número de telefone para buscar. Só podem ser afetados lembretes que

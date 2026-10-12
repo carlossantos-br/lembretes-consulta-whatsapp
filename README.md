@@ -15,7 +15,7 @@ referência executável com adapters em memória. Sem dado de cliente, sem
 credencial, sem os clientes reais das APIs. Ver [O que não está aqui](#o-que-não-está-aqui).
 
 ```
-npm test    # 55 testes, sem etapa de instalação — não há dependências
+npm test    # 56 testes, sem etapa de instalação — não há dependências
 npm run demo
 ```
 

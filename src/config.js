@@ -25,7 +25,10 @@ export const DEFAULT_CONFIG = {
   cancelledStatus: 'cancelled',
 
   webhookSecretHeader: 'x-reminder-secret',
+  /** Sem ele o webhook recusa tudo (falha fechada). */
   webhookSecret: null,
+  /** Só para testes e demos locais: aceita webhook sem segredo. Nunca em produção. */
+  allowUnauthenticatedWebhook: false,
 
   /**
    * Respostas escaladas são gravadas como motivo, não como texto, a menos que o

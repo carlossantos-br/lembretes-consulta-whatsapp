@@ -55,9 +55,12 @@ export function harness({
     messaging,
     store,
     alerts,
-    orchestrator: createOrchestrator(ports, { timeZone: TZ, ...config }),
+    // Os testes que não tratam de autenticação dispensam o segredo; o 13 e o de
+    // falha fechada configuram o seu.
+    orchestrator: createOrchestrator(ports, { timeZone: TZ, allowUnauthenticatedWebhook: true, ...config }),
     /** Um redeploy com outras configurações e os mesmos dados. */
-    redeploy: (overrides) => createOrchestrator(ports, { timeZone: TZ, ...config, ...overrides }),
+    redeploy: (overrides) =>
+      createOrchestrator(ports, { timeZone: TZ, allowUnauthenticatedWebhook: true, ...config, ...overrides }),
   };
 }
 
